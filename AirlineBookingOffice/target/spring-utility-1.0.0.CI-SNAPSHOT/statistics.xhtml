@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Statistics</title>
+	<h:outputStylesheet library="css" name="styles.css" target="head" />
+</h:head>
+<h:body>
+	<h:form>
+		<h:outputText value="Період" />
+		<p:calendar id="from" value="#{statistics.from}" required="true"
+			mode="inline" navigator="true" />
+		<p:calendar id="to" value="#{statistics.to}" required="true"
+			mode="inline" navigator="true" />
+		<h:commandButton value="Submit" action="statistics" />
+		<p:chart type="line" model="#{statistics.chart}"
+			style="height:300px;" />
+	</h:form>
+</h:body>
+</html>

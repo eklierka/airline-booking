@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Пошук</title>
+	<h:outputStylesheet library="css" name="styles.css" target="head" />
+	
+</h:head>
+<h:body>
+	<h:form>
+		<h:panelGrid columns="2" cellpadding="5">
+			<p:outputLabel value="Звідки" />
+			<p:inputText id="depart" value="#{flightList.depart}" required="true"
+				requiredMessage="Введіть місто вильоту" />
+			<p:outputLabel value="Куди" />
+			<p:inputText value="#{flightList.dest}" required="true" />
+			<p:outputLabel value="Дата вильоту" />
+			<p:calendar id="inline" value="#{flightList.date}" pattern="dd.MM.yyyy" mask="true"
+				mindate="#{flightList.now}" navigator="true">
+			</p:calendar>
+			<p:commandButton value="Пошук" update="inline" action="searchResult" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

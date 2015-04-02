@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Додавання аеропорту</title>
+	<h:outputStylesheet library="css" name="styles.css" target="head" />
+</h:head>
+<h:body>
+	<h:form>
+		<p:focus />
+		<h:panelGrid columns="3" cellpadding="5">
+			<h:outputText value="Назва" />
+			<p:inputText id="name" value="#{addingAirport.airport.name}" required="true" requiredMessage="Введіть назву аеропорту"/>
+			<h:message for="name" />
+			<h:outputText value="Місто" />
+			<p:inputText id="city" value="#{addingAirport.airport.city}" required="true" requiredMessage="Введіть місто" />
+			<h:message for="city" />
+			<h:outputText value="Країна" />
+			<p:inputText id="country" value="#{addingAirport.airport.country}" required="true" requiredMessage="Введіть назву країни"/>
+			<h:message for="country" />
+			<h:commandButton value="Додати"
+				action="#{addingAirport.addAirport()}" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

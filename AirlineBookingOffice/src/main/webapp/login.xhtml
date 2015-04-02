@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Логін</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:focus />
+		<p:growl id="growl" severity="info,fatal" />
+		<h:panelGrid columns="3" cellpadding="5">
+			<p:outputLabel value="Логін" />
+			<p:inputText id="login" value="#{loginBean.login}" required="true"
+				requiredMessage="Введіть логін" />
+			<p:message for="login" />
+			<p:outputLabel value="Пароль" />
+			<p:password id="pass" value="#{loginBean.password}" required="true"
+				requiredMessage="Введіть пароль" />
+			<p:message for="pass" />
+			<p:outputLabel />
+			<p:commandButton value="Увійти" style="width:221px" ajax="false"
+				action="#{loginBean.login()}" update="growl" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

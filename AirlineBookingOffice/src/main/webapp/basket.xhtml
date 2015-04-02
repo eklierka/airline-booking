@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Корзина</title>
+	<h:outputStylesheet library="css" name="styles.css" target="head" />
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:tabMenu activeIndex="1" style="margin-bottom:15px">
+			<p:menuitem value="Пошук" url="searchFlight.xhtml" />
+			<p:menuitem value="Корзина" url="basket.xhtml" />
+		</p:tabMenu>
+
+		<p:growl id="growl" severity="info,fatal" />
+
+		<p:panel header="Замовлення">
+			<p:dataTable value="#{booking.ticketsList}" var="t"
+				emptyMessage="Не додано жодного квитка.">
+				<!-- <f:facet name="header">
+            Замовлення
+        </f:facet>  -->
+				<p:column headerText="Рейс" width="90" style="text-align: center">
+					<h:outputText value="#{t.flight.flightNumber} " />
+				</p:column>
+				<p:column headerText="Звідки / Куди" width="70%">
+					<h:outputText
+						value="#{t.flight.departAirport.city}, #{t.flight.departAirport.name} (#{t.flight.departAirport.country})" />
+					<br />
+					<h:outputText
+						value="#{t.flight.destAirport.city}, #{t.flight.destAirport.name} (#{t.flight.destAirport.country})" />
+				</p:column>
+				<p:column headerText="Дата" sortBy="#{t.flight.departTime}"
+					width="95" style="text-align: center">
+					<h:outputText value="#{t.flight.departTime}">
+						<f:convertDateTime pattern="dd.MM.yyyy" />
+					</h:outputText>
+					<br />
+					<h:outputText value="#{t.flight.destTime}">
+						<f:convertDateTime pattern="dd.MM.yyyy" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Відп. Приб." width="75"
+					style="text-align: center">
+					<h:outputText value="#{t.flight.departTime}">
+						<f:convertDateTime pattern="HH:mm" />
+					</h:outputText>
+					<br />
+					<h:outputText value="#{t.flight.destTime}">
+						<f:convertDateTime pattern="HH:mm" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Ціна" sortBy="#{t.flight.price}" width="60"
+					style="text-align: center">
+					<h:outputText value="#{t.flight.price}" />
+				</p:column>
+				<p:column headerText="" width="140">
+					<h:commandButton value="Видалити"
+						action="#{booking.deleteFlight(t.flight.id)}" ajax="false"
+						immediate="true" />
+				</p:column>
+				<f:facet name="footer">
+        			Всього #{booking.refreshTotalSum()} грн.
+   				 </f:facet>
+			</p:dataTable>
+		</p:panel>
+
+		<p:panel header="Контактні дані" style="margin-top:15px">
+
+			<h:panelGrid columns="3" cellpadding="5">
+				<p:outputLabel value="Прізвище" />
+				<p:inputText id="Surname" value="#{booking.customer.surname}"
+					required="true" requiredMessage="Введіть прізвище." />
+				<p:message for="Surname" />
+				<p:outputLabel value="Ім'я" />
+				<p:inputText id="Name" value="#{booking.customer.name}"
+					required="true" requiredMessage="Введіть ім'я." />
+				<p:message for="Name" />
+				<p:outputLabel value="Email" />
+				<p:inputText id="mail" value="#{booking.customer.email}"
+					required="true" requiredMessage="Вкажіть e-mail." />
+				<p:message for="mail" />
+				<p:outputLabel value="Номер телефону" />
+				<p:inputText id="phone" value="#{booking.customer.phoneNumb}"
+					required="true" requiredMessage="Вкажіть номер телефону." />
+				<p:message for="phone" />
+				<p:outputLabel />
+				
+				
+				<p:commandButton value="Забронювати" action="#{booking.book()}"
+					ajax="false" />
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

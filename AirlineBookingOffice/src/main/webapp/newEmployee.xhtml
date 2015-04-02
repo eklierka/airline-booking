@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Працівник</title>
+	<h:outputStylesheet library="css" name="styles.css" target="head" />
+</h:head>
+<h:body>
+	<h:form>
+		#{roleDataSource.refreshRoles()}
+		<p:growl id="growl" severity="info" />
+		<h:panelGrid columns="3" cellpadding="5">
+			<p:outputLabel value="Прізвище" />
+			<p:inputText id="Surname" value="#{employeeBean.emp.surname}"
+				required="true" requiredMessage="Введіть прізвище." />
+			<p:message for="Surname" />
+			<p:outputLabel value="Ім'я" />
+			<p:inputText id="Name" value="#{employeeBean.emp.name}"
+				required="true" requiredMessage="Введіть ім'я." />
+			<p:message for="Name" />
+			<p:outputLabel value="Номер телефону" />
+			<p:inputText id="phone" value="#{employeeBean.emp.phoneNumb}"
+				required="true" requiredMessage="Вкажіть номер телефону."
+				validatorMessage="Некоректний номер">
+				<f:validateRegex
+					pattern="^\+?[0-9]+$" />
+			</p:inputText>
+			<p:message for="phone" />
+			<p:outputLabel value="Email" />
+			<p:inputText id="mail" value="#{employeeBean.emp.email}"
+				required="true" requiredMessage="Вкажіть e-mail."
+				validatorMessage="Некоректна адреса">
+				<f:validateRegex
+					pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+			</p:inputText>
+			<p:message for="mail" />
+			<p:outputLabel value="Логін" />
+			<p:inputText id="login" value="#{employeeBean.emp.login}"
+				required="true" requiredMessage="Введіть логін." />
+			<p:message for="login" />
+			<p:outputLabel value="Пароль" />
+			<p:password id="password" value="#{employeeBean.emp.password}"
+				required="true" requiredMessage="Введіть пароль." />
+			<p:message for="password" />
+			<p:outputLabel value="Роль" />
+			<p:selectOneMenu id="role" value="#{employeeBean.emp.role}"
+				style="width:223px" converter="#{roleConverter}"
+				forceSelection="true">
+				<f:selectItems value="#{roleDataSource.roles}" itemLabel="#{r}"
+					itemValue="#{r}" />
+			</p:selectOneMenu>
+			<p:message for="role" />
+			<p:outputLabel value="Співробітник" />
+			<p:selectOneRadio id="status" value="#{employeeBean.emp.enabled}"
+				required="true">
+				<f:selectItem itemValue="true" itemLabel="Так" />
+				<f:selectItem itemValue="false" itemLabel="Ні" />
+			</p:selectOneRadio>
+			<p:outputLabel />
+			<p:outputLabel />
+			<p:commandButton value="Додати" action="#{employeeBean.add()}"
+				ajax="false" />
+
+		</h:panelGrid>
+		<!-- #{employeeBean.emp.role.role} -->
+	</h:form>
+</h:body>
+</html>

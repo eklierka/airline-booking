@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Аеропорт</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:focus />
+		<h:panelGrid columns="3" cellpadding="5">
+			<p:outputLabel value="Назва" />
+			<p:inputText id="name" value="#{airportBean.airport.name}"
+				required="true" requiredMessage="Введіть назву аеропорту" />
+			<p:message for="name" />
+			<p:outputLabel value="Місто" />
+			<p:inputText id="city" value="#{airportBean.airport.city}"
+				required="true" requiredMessage="Введіть місто" />
+			<p:message for="city" />
+			<p:outputLabel value="Країна" />
+			<p:inputText id="country" value="#{airportBean.airport.country}"
+				required="true" requiredMessage="Введіть назву країни" />
+			<p:message for="country" />
+			<p:outputLabel />
+			<p:commandButton value="Зберегти" style="width:221px" ajax="false"
+				action="#{airportBean.add()}" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

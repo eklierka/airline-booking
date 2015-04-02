@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Редагування рейсів</title>
+	<h:outputStylesheet library="css" name="styles.css" target="head" />
+</h:head>
+<h:body>
+	<h:form>
+		#{flightEditing.refreshList()}
+		<h:dataTable value="#{flightEditing.flights}" var="f">
+			<!-- styleClass="merchantTable" 
+		    headerClass="merchantTableHeader" 
+		    rowClasses="merchantTableOddRow,
+				merchantTableEvenRow"> -->
+			<h:column>
+				<f:facet name="header">Рейс</f:facet> 
+				#{f.flightNumber} 
+			</h:column>
+			<h:column>
+				<f:facet name="header">Звідки / Куди</f:facet> 
+				#{f.departAirport.city}, #{f.departAirport.name} (#{f.departAirport.country})
+				<br />#{f.destAirport.city}, #{f.destAirport.name} (#{f.destAirport.country})
+			</h:column>
+			<h:column>
+				<f:facet name="header">Кількість квитків</f:facet> 
+				#{f.numbOfTickets} 
+			</h:column>
+			<h:column>
+				<f:facet name="header">Ціна</f:facet>
+				#{f.price} 
+			</h:column>
+			<h:column>
+				<f:facet name="header"> </f:facet>
+				<h:commandButton action="#{flightEditing.updateFlight(f.id)}" value="Edit" />
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>

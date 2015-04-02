@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title></title>
+	<h:outputStylesheet library="css" name="styles.css" target="head" />
+</h:head>
+<h:body>
+	<h:form>
+		<h2>Дані пасажира</h2>
+		<h:panelGrid columns="2" cellpadding="5">
+			<h:outputText value="Прізвище" />
+			<p:inputText value="#{booking.ticket.surname}" required="true" />
+			<h:outputText value="Ім'я" />
+			<p:inputText value="#{booking.ticket.name}" required="true" />
+			<h:outputText value="Стать" />
+			<h:selectOneRadio value="#{booking.ticket.sex}" required="true">
+				<f:selectItem itemValue="f" itemLabel="Ж" />
+				<f:selectItem itemValue="m" itemLabel="Ч" />
+			</h:selectOneRadio>
+			<h:outputText value="Дата народження" />
+			<p:calendar id="birth" value="#{booking.birthDate}"
+				required="true" navigator="true" mode="popup" pattern="dd.MM.yyyy" />
+			<h:outputText value="Громадянство" />
+			<p:inputText value="#{booking.ticket.citizenship}" required="true" />
+			<h:outputText value="Серія, №документа" />
+			<p:inputText value="#{booking.ticket.document}" required="true" />
+			<h:outputText value="Термін дії" />
+			<p:calendar id="docValid" value="#{booking.docValidity}"
+				required="true" mode="popup" navigator="true" pattern="dd.MM.yyyy" />
+		</h:panelGrid>
+		<h2>Контактні дані</h2>
+		<h:panelGrid columns="2" cellpadding="5">
+			<h:outputText value="Прізвище" />
+			<p:inputText value="#{booking.customer.surname}" required="true" />
+			<h:outputText value="Ім'я" />
+			<p:inputText value="#{booking.customer.name}" required="true" />
+			<h:outputText value="Email" />
+			<p:inputText value="#{booking.customer.email}" required="true" />
+			<h:outputText value="Номер телефону" />
+			<p:inputText value="#{booking.customer.phoneNumb}" required="true" />
+		</h:panelGrid>
+		<h:commandButton value="Додати в корзину" action="#{booking.addToBasket()}" />
+	</h:form>
+</h:body>
+</html>

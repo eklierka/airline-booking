@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Список рейсів</title>
+	<h:outputStylesheet library="css" name="styles.css" target="head" />
+</h:head>
+
+<h:body>
+	<h:form>
+		<!-- 
+		<h:panelGrid columns="2" cellpadding="5">
+			<p:outputLabel value="Звідки" />
+			<p:inputText value="#{flightList.depart}" required="true"
+				requiredMessage="Введіть місто вильоту" />
+			<p:outputLabel value="Куди" />
+			<p:inputText value="#{flightList.dest}" required="true" />
+			<p:outputLabel value="Дата вильоту" />
+			<p:calendar id="inline" value="#{flightList.date}" pattern="dd.MM.yyyy" mask="true"
+				mindate="#{flightList.now}" navigator="true" />
+			<p:commandButton value="Пошук" update="inline" action="searchResult" />
+		</h:panelGrid>
+		 -->
+		<h2>Результати пошуку</h2> 
+	    #{flightList.refreshList()}	  
+		<p:dataTable value="#{flightList.flights}" var="f" style="margin-bottom:40px">
+			<!-- styleClass="merchantTable" 
+		    headerClass="merchantTableHeader" 
+		    rowClasses="merchantTableOddRow,
+				merchantTableEvenRow"> -->
+			<h:column>
+				<f:facet name="header">Рейс</f:facet> 
+				#{f.flightNumber} 
+			</h:column>
+			<h:column>
+				<f:facet name="header">Звідки / Куди</f:facet> 
+				#{f.departAirport.city}, #{f.departAirport.name} (#{f.departAirport.country})
+				<br />#{f.destAirport.city}, #{f.destAirport.name} (#{f.destAirport.country})
+			</h:column>
+			<h:column>
+				<f:facet name="header">Дата</f:facet>
+				<h:outputText value="#{f.departTime}">
+					<f:convertDateTime pattern="dd.MM.yyyy" />
+				</h:outputText>
+				<br />
+				<h:outputText value="#{f.destTime}">
+					<f:convertDateTime pattern="dd.MM.yyyy" />
+				</h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Відправлення / Прибуття</f:facet>
+				<h:outputText value="#{f.departTime}">
+					<f:convertDateTime pattern="HH:mm" />
+				</h:outputText>
+				<br />
+				<h:outputText value="#{f.destTime}">
+					<f:convertDateTime pattern="HH:mm" />
+				</h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Ціна</f:facet>
+				#{f.price} 
+			</h:column>
+			<h:column>
+				<f:facet name="header">К-сть місць</f:facet>
+				<p:spinner value="#{f.numbOfTickets}" max="" />
+				<!-- #{f.numbOfTickets}  -->
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+				</f:facet>
+				<h:commandButton value="Забронювати"
+					action="#{booking.saveFlight(f.id)}" />
+			</h:column>
+		</p:dataTable>
+
+		<p:dataTable var="car" value="#{dtSortView.cars1}"
+			style="margin-bottom:40px">
+			<f:facet name="header">
+            Single Column Sort
+        </f:facet>
+			<p:column headerText="Id" sortBy="#{car.id}">
+				<h:outputText value="#{car.id}" />
+			</p:column>
+
+			<p:column headerText="Year" sortBy="#{car.year}">
+				<h:outputText value="#{car.year}" />
+			</p:column>
+
+			<p:column headerText="Brand" sortBy="#{car.brand}">
+				<h:outputText value="#{car.brand}" />
+			</p:column>
+
+			<p:column headerText="Color" sortBy="#{car.color}">
+				<h:outputText value="#{car.color}" />
+			</p:column>
+		</p:dataTable>
+
+	</h:form>
+</h:body>
+</html>

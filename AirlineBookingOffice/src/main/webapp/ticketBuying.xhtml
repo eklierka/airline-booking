@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title></title>
+	<h:outputStylesheet library="css" name="styles.css" target="head" />
+</h:head>
+<h:body>
+	<h:form>
+		<p:panel
+			header="Дані пасажира (#{booking.ticket.flight.flightNumber}, #{booking.ticket.flight.departAirport.city}-#{booking.ticket.flight.destAirport.city})">
+			<h:panelGrid columns="3" cellpadding="5">
+				<p:outputLabel value="Прізвище" />
+				<p:inputText id="surname" value="#{booking.ticket.surname}"
+					required="true" requiredMessage="Введіть прізвище." />
+				<p:message for="surname" />
+				<p:outputLabel value="Ім'я" />
+				<p:inputText id="name" value="#{booking.ticket.name}"
+					required="true" requiredMessage="Введіть ім'я." />
+				<p:message for="name" />
+				<p:outputLabel value="Стать" />
+				<p:selectOneRadio id="sex" value="#{booking.ticket.sex}"
+					required="true">
+					<f:selectItem itemValue="f" itemLabel="Ж" />
+					<f:selectItem itemValue="m" itemLabel="Ч" />
+				</p:selectOneRadio>
+				<p:outputLabel />
+				<p:outputLabel value="Дата народження" />
+				<p:calendar id="birth" value="#{booking.birthDate}" required="true"
+					requiredMessage="Вкажіть дату народження." navigator="true"
+					mode="popup" pattern="dd.MM.yyyy" />
+				<p:message for="birth" />
+				<p:outputLabel value="Громадянство" />
+				<p:inputText id="citizen" value="#{booking.ticket.citizenship}"
+					required="true" requiredMessage="Вкажіть громадянство." />
+				<p:message for="citizen" />
+				<p:outputLabel value="Серія, №документа" />
+				<p:inputText id="doc" value="#{booking.ticket.document}"
+					required="true" requiredMessage="Вкажіть серію та номер документа." />
+				<p:message for="doc" />
+				<p:outputLabel value="Термін дії" />
+				<p:calendar id="docValid" value="#{booking.docValidity}"
+					required="true" requiredMessage="Вкажіть термін дії документа."
+					mode="popup" navigator="true" pattern="dd.MM.yyyy" />
+				<p:message for="docValid" />
+				<p:outputLabel />
+				<p:commandButton value="Додати в корзину" style="width:223px" ajax="false"
+					action="#{booking.addToBasket()}" />
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

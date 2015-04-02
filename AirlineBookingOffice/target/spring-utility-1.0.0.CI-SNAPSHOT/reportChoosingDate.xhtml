@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title></title>
+	<h:outputStylesheet library="css" name="styles.css" target="head" />
+</h:head>
+<h:body>
+	<h:form>
+		<p:calendar value="#{reportByDate.firstDate}" navigator="true"
+			maxdate="#{reportByDate.maxDate}" mode="inline" pattern="dd.MM.yyyy" />
+			
+		<p:calendar value="#{reportByDate.lastDate}" navigator="true"
+			maxdate="#{reportByDate.maxDate}" mode="inline" pattern="dd.MM.yyyy" />
+			
+		<h:commandButton value="Показати" action="reportByDate" />
+	</h:form>
+</h:body>
+</html>

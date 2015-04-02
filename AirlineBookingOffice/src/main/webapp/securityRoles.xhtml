@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Працівники</title>
+</h:head>
+<h:body>
+	<h:form>
+
+		<p:tabMenu activeIndex="1" style="margin-bottom:15px">
+			<p:menuitem value="Працівники" url="securityWorkers.xhtml" />
+			<p:menuitem value="Ролі" url="securityRoles.xhtml" />
+		</p:tabMenu>
+		<p:commandButton value="Нова роль" action="newRole"
+			style="margin-bottom:15px;" />
+		<p:commandButton value="Вийти" action="#{loginBean.logout()}"
+			style="position:absolute;right:6px" />	
+					
+		#{roleList.refreshRoles()}			  
+		<p:dataTable value="#{roleList.roles}" var="r"
+			style="margin-bottom:40px" emptyMessage="Не знайдено жодної ролі.">
+			<p:column headerText="id" sortBy="#{r.id}" style="text-align: center">
+				<h:outputText value="#{r.id} " />
+			</p:column>
+			<p:column headerText="Роль" sortBy="#{r.role}" 
+				style="text-align: center">
+				<h:outputText value="#{r.role}" />
+			</p:column>
+			<p:column headerText="">
+				<h:commandButton value="Видалити"
+					disabled="#{roleList.isDeletable(r.id)}"
+					action="#{roleList.delete(r.id)}"
+					style="margin-bottom:5px; width:125px" ajax="false" />
+			</p:column>
+			
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>

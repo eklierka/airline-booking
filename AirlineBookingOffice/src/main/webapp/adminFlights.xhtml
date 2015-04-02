@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Рейси</title>
+	<style>
+</style>
+</h:head>
+<h:body>
+	<h:form>
+		<p:tabMenu activeIndex="1" style="margin-bottom:15px">
+			<p:menuitem value="Аеропорти" url="adminAirports.xhtml" />
+			<p:menuitem value="Рейси" url="adminFlights.xhtml" />
+		</p:tabMenu>
+
+		<p:commandButton value="Новий" action="newFlight"
+			style="margin-bottom:15px;" />
+
+		<p:commandButton value="Вийти" action="#{loginBean.logout()}"
+			style="position:absolute;right:6px" />
+		
+		#{flightList.selectAllFlights()}	  
+		<p:dataTable value="#{flightList.flights}" var="f"
+			style="margin-bottom:40px" emptyMessage="Не знайдено жодного рейсу."
+			paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="10,20,30">
+
+			<p:column headerText="Рейс" width="90" style="text-align: center">
+				<h:outputText value="#{f.flightNumber} " />
+			</p:column>
+			<p:column headerText="Звідки / Куди" width="70%">
+				<h:outputText
+					value="#{f.departAirport.city}, #{f.departAirport.name} (#{f.departAirport.country})" />
+				<br />
+				<h:outputText
+					value="#{f.destAirport.city}, #{f.destAirport.name} (#{f.destAirport.country})" />
+			</p:column>
+			<p:column headerText="Дата" sortBy="#{f.departTime}" width="95"
+				style="text-align: center">
+				<h:outputText value="#{f.departTime}">
+					<f:convertDateTime pattern="dd.MM.yyyy" />
+				</h:outputText>
+				<br />
+				<h:outputText value="#{f.destTime}">
+					<f:convertDateTime pattern="dd.MM.yyyy" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Відп. Приб." width="75"
+				style="text-align: center">
+				<h:outputText value="#{f.departTime}">
+					<f:convertDateTime pattern="HH:mm" />
+				</h:outputText>
+				<br />
+				<h:outputText value="#{f.destTime}">
+					<f:convertDateTime pattern="HH:mm" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Ціна" sortBy="#{f.price}" width="60"
+				style="text-align: center">
+				<h:outputText value="#{f.price}" />
+			</p:column>
+			<p:column headerText="К-сть місць" width="50"
+				style="text-align: center">
+				<h:outputText value="#{f.numbOfTickets}" />
+			</p:column>
+			<p:column headerText="" width="128">
+				<h:commandButton value="Видалити"
+					action="#{flightList.delete(f.id)}"
+					disabled="#{flightList.isDeletable(f.id)}"
+					style="margin-bottom:5px; width:125px" ajax="false" />
+				<h:commandButton value="Редагувати"
+					action="#{flightBean.edit(f.id)}" style="width:125px" ajax="false" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title></title>
+	<h:outputStylesheet library="css" name="styles.css" target="head" />
+</h:head>
+<h:body>
+	<h:form>
+		<h:panelGrid columns="3" cellpadding="5">
+			<h:outputText value="Номер рейсу" />
+			<p:inputText id="flightNumb" value="#{addingFlight.flight.flightNumber}" required="true" requiredMessage="Введіть номер рейсу"/>
+			<h:message for="flightNumb" />
+			
+			<h:outputText value="Звідки" />
+			<p:autoComplete id="from" required="true" requiredMessage="Виберіть місто"
+				value="#{addingFlight.flight.departAirport}"
+				completeMethod="#{airportAutoComplete.completeAirport}" var="depart"
+				itemLabel="#{depart}" itemValue="#{depart}"
+				converter="#{airportConverter}" forceSelection="true" />
+			<h:message for="from" />
+
+			<h:outputText value="Дата і час вильоту" />
+			<p:calendar id="departDate" value="#{addingFlight.departTime}"
+				pattern="dd.MM.yyyy HH:mm" required="true" requiredMessage="Вкажіть дату і час"/> 
+			<h:message for="departDate" />
+				
+			<h:outputText value="Куди" />
+			<p:autoComplete id="to" required="true" requiredMessage="Виберіть місто"
+				value="#{addingFlight.flight.destAirport}"
+				completeMethod="#{airportAutoComplete.completeAirport}" var="dest"
+				itemLabel="#{dest}" itemValue="#{dest}" converter="#{airportConverter}"
+				forceSelection="true" />
+			<h:message for="to" />
+				
+			<h:outputText value="Дата і час посадки" />
+			<p:calendar id="destDate" value="#{addingFlight.destTime}"
+				pattern="dd.MM.yyyy HH:mm" required="true" requiredMessage="Вкажіть дату і час"/>
+			<h:message for="destDate" />
+				
+			<h:outputText value="Кількість квитків" />
+			<p:inputText id="tickNumb" value="#{addingFlight.flight.numbOfTickets}"
+				required="true" requiredMessage="Введіть кількість квитків"/>
+			<h:message for="tickNumb" />
+				
+			<h:outputText value="Ціна квитка" />
+			<p:inputText id="tickPrice" value="#{addingFlight.flight.price}" 
+				required="true" requiredMessage="Введіть вартість квитка"/>
+			<h:message for="tickPrice" />
+			
+			<h:commandButton value="Додати" action="#{addingFlight.addFlight()}" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

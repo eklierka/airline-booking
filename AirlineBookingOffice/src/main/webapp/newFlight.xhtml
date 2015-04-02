@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Рейс</title>
+	<h:outputStylesheet library="css" name="styles.css" target="head" />
+</h:head>
+<h:body>
+	<h:form>
+		<h:panelGrid columns="3" cellpadding="5">
+			<p:outputLabel value="Номер рейсу" />
+			<p:inputText id="flightNumb"
+				value="#{flightBean.flight.flightNumber}" required="true"
+				requiredMessage="Введіть номер рейсу" />
+			<p:message for="flightNumb" />
+
+			<p:outputLabel value="Звідки" />
+			<p:autoComplete id="from" required="true"
+				requiredMessage="Виберіть місто"
+				value="#{flightBean.flight.departAirport}"
+				completeMethod="#{airportAutoComplete.completeAirport}" var="depart"
+				itemLabel="#{depart}" itemValue="#{depart}"
+				converter="#{airportConverter}" forceSelection="true" />
+			<p:message for="from" />
+
+			<p:outputLabel value="Дата і час вильоту" />
+			<p:calendar id="departDate" value="#{flightBean.departTime}"
+				pattern="dd.MM.yyyy HH:mm" mindate="#{flightList.now}"
+				required="true" requiredMessage="Вкажіть дату і час" />
+			<p:message for="departDate" />
+
+			<p:outputLabel value="Куди" />
+			<p:autoComplete id="to" required="true"
+				requiredMessage="Виберіть місто"
+				value="#{flightBean.flight.destAirport}"
+				completeMethod="#{airportAutoComplete.completeAirport}" var="dest"
+				itemLabel="#{dest}" itemValue="#{dest}"
+				converter="#{airportConverter}" forceSelection="true" />
+			<p:message for="to" />
+
+			<p:outputLabel value="Дата і час посадки" />
+			<p:calendar id="destDate" value="#{flightBean.destTime}"
+				pattern="dd.MM.yyyy HH:mm" mindate="#{flightList.now}"
+				required="true" requiredMessage="Вкажіть дату і час" />
+			<p:message for="destDate" />
+
+			<p:outputLabel value="Кількість квитків" />
+			<p:inputText id="tickNumb" value="#{flightBean.flight.numbOfTickets}"
+				required="true" requiredMessage="Введіть кількість квитків"
+				converterMessage="Введіть додатнє число" >
+				<f:convertNumber integerOnly="true" patter="\d*" />
+			</p:inputText>
+			<p:message for="tickNumb" />
+
+			<p:outputLabel value="Ціна квитка" />
+			<p:inputText id="tickPrice" value="#{flightBean.flight.price}"
+				required="true" requiredMessage="Введіть вартість квитка"
+				converterMessage="Введіть додатнє число">
+				<f:convertNumber integerOnly="true" patter="\d*" />
+			</p:inputText>
+			<p:message for="tickPrice" />
+
+			<p:outputLabel />
+			<p:commandButton value="Зберегти" action="#{flightBean.save()}"
+				style="width:221px" ajax="false" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>
